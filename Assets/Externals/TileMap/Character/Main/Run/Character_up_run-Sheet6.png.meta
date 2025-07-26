@@ -46,7 +46,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -60,7 +60,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 15
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -134,9 +134,9 @@ TextureImporter:
       name: Character_up_run-Sheet6_1
       rect:
         serializedVersion: 2
-        x: 12
+        x: 13
         y: 0
-        width: 28
+        width: 13
         height: 17
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -156,7 +156,7 @@ TextureImporter:
       name: Character_up_run-Sheet6_2
       rect:
         serializedVersion: 2
-        x: 39
+        x: 26
         y: 0
         width: 13
         height: 17
@@ -178,9 +178,9 @@ TextureImporter:
       name: Character_up_run-Sheet6_3
       rect:
         serializedVersion: 2
-        x: 51
+        x: 39
         y: 0
-        width: 27
+        width: 13
         height: 17
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -196,11 +196,55 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Character_up_run-Sheet6_4
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 0
+        width: 13
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 852560adddfd14d4b9bf349790b10c62
+      internalID: -478507205
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Character_up_run-Sheet6_5
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 0
+        width: 13
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 929b493963b34488ca2f766dad2568fb
+      internalID: 1074900021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 0dabf53f8ecee4ac3ac3474f5d779390
     internalID: 0
     vertices: []
     indices: 
@@ -208,12 +252,16 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":6.0,"y":1.0},"gridSpriteSize":{"x":13.0,"y":17.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       Character_up_run-Sheet6_0: -8934747027019207898
       Character_up_run-Sheet6_1: -6047629623888922155
       Character_up_run-Sheet6_2: -4301890652712647386
       Character_up_run-Sheet6_3: -3859461838131117768
+      Character_up_run-Sheet6_4: -478507205
+      Character_up_run-Sheet6_5: 1074900021
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
