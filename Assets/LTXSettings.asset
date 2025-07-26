@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-5440801675582846413
+--- !u!114 &-7904983629231421625
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -26,9 +26,9 @@ MonoBehaviour:
   m_Name: LTXSettings
   m_EditorClassIdentifier: 
   settingsAssets:
-  - {fileID: 391551164466666130}
-  - {fileID: -5440801675582846413}
---- !u!114 &391551164466666130
+  - {fileID: 8724144772461326581}
+  - {fileID: -7904983629231421625}
+--- !u!114 &8724144772461326581
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
