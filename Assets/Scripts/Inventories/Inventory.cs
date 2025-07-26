@@ -32,6 +32,20 @@ namespace Inventories
         }
 
 
+        public bool TryGetItem(string guid, out InventoryItem item)
+        {
+            int idx = GetIndexOfItem(guid);
+            if (idx != -1)
+            {
+
+                item = items[idx];
+                return true;
+            }
+
+            item = default;
+            return false;
+        }
+
         public int GetIndexOfItem(InventoryItem item) => GetIndexOfItem(item.Guid);
         public int GetIndexOfItem(string guid)
         {
@@ -42,7 +56,7 @@ namespace Inventories
         public void RemoveItem(int index) => items.RemoveAt(index);
         public void RemoveItem(InventoryItem item) => RemoveItem(GetIndexOfItem(item));
 
-        private int ToIndex(int x, int y) => y * Size.x + x;
+        public int ToIndex(int x, int y) => y * Size.x + x;
 
 
         public void ChangeSize(int width, int height)

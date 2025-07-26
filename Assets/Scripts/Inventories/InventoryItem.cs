@@ -3,16 +3,8 @@ using UnityEngine;
 
 namespace Inventories
 {
-    public enum Orientation
-    {
-        Right,
-        Left,
-        Up,
-        Down,
-    }
-
     [System.Serializable]
-    public struct InventoryItem : IEquatable<InventoryItem>
+    public struct InventoryItem : IEquatable<InventoryItem>, ISerializationCallbackReceiver
     {
 
         [field: SerializeField]
@@ -49,6 +41,7 @@ namespace Inventories
                     Orientation.Up => new Vector2Int(current.y, current.x),
                     Orientation.Left => new Vector2Int(-current.x, current.y),
                     Orientation.Down => new Vector2Int(current.y, -current.x),
+                    _ => Vector2Int.zero,
                 };
             }
 
@@ -68,6 +61,16 @@ namespace Inventories
         public override int GetHashCode()
         {
             return (Guid != null ? Guid.GetHashCode() : 0);
+        }
+
+        void ISerializationCallbackReceiver.OnBeforeSerialize()
+        {
+            if (string.IsNullOrEmpty(Guid))
+                Guid = System.Guid.NewGuid().ToString();
+        }
+
+        void ISerializationCallbackReceiver.OnAfterDeserialize()
+        {
         }
     }
 }
