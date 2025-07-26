@@ -7,7 +7,6 @@ public class ZombieFollow : MonoBehaviour
     private const string horizontal = "Horizontal";
     private const string vertical = "Vertical";
     private const string isMoving = "IsMoving";
-    private GameObject target;
     private Animator animator;
     
     bool isFollowing = false;
@@ -31,7 +30,6 @@ public class ZombieFollow : MonoBehaviour
     {
       if (other.gameObject.tag == "Player")
       {
-          target = other.gameObject;
           isFollowing = true;
       }
     }
