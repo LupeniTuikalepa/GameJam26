@@ -1,3 +1,4 @@
+using LTX.ChanneledProperties.Priorities;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
