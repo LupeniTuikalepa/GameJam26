@@ -2,7 +2,19 @@
 /shelf/
 /workspace.xml
 # Rider ignored files
+<<<<<<< HEAD
 /contentModel.xml
 /projectSettingsUpdater.xml
 /modules.xml
 /.idea.GameJam26.iml
+=======
+/projectSettingsUpdater.xml
+/modules.xml
+/contentModel.xml
+/.idea.GameJam26.iml
+# Editor-based HTTP Client requests
+/httpRequests/
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
+>>>>>>> 2a0a811 (Day Night Cycle)
