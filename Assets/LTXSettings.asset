@@ -1,9 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
-<<<<<<< HEAD
---- !u!114 &-5559422127867287587
-=======
---- !u!114 &-3412854884186145467
+--- !u!114 &-5440801675582846413
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -29,10 +26,9 @@ MonoBehaviour:
   m_Name: LTXSettings
   m_EditorClassIdentifier: 
   settingsAssets:
-  - {fileID: 4239874615699839685}
-  - {fileID: -3412854884186145467}
---- !u!114 &4239874615699839685
->>>>>>> 2a0a811 (Day Night Cycle)
+  - {fileID: 391551164466666130}
+  - {fileID: -5440801675582846413}
+--- !u!114 &391551164466666130
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -49,31 +45,3 @@ MonoBehaviour:
   <DefaultCapacity>k__BackingField: 16
   <ExpandOnFullCapacityReached>k__BackingField: 1
   <MaxGroups>k__BackingField: 32
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 8
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50613948527c4eceb01859c55c7237b8, type: 3}
-  m_Name: LTXSettings
-  m_EditorClassIdentifier: 
-  settingsAssets:
-  - {fileID: -5559422127867287587}
-  - {fileID: 2967114934738148368}
---- !u!114 &2967114934738148368
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9e06918739b4ef583376afd520bac50, type: 3}
-  m_Name: SingletonSettings
-  m_EditorClassIdentifier: 
-  <AllowMultiSceneSingletonByDefault>k__BackingField: 1
