@@ -56,7 +56,12 @@ namespace Inventories
         public void RemoveItem(int index) => items.RemoveAt(index);
         public void RemoveItem(InventoryItem item) => RemoveItem(GetIndexOfItem(item));
 
-        public int ToIndex(int x, int y) => y * Size.x + x;
+        public int ToIndex(int x, int y)
+        {
+            int result = (y * Size.x)+ x;
+            Debug.Log($"{x} | {y} => {result} for {Size}");
+            return result;
+        }
 
 
         public void ChangeSize(int width, int height)

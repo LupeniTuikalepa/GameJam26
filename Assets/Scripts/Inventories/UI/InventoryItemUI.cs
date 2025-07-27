@@ -16,6 +16,8 @@ namespace Inventories.UI
             parent = GetComponentInParent<InventoryUI>();
             image = GetComponent<Image>();
         }
+        private static Vector3[] corners = new Vector3[4];
+
 
         public void Bind(InventoryItem item)
         {
@@ -30,45 +32,47 @@ namespace Inventories.UI
             };
 
             Vector2Int[] cells = item.GetCells();
-
-            Vector2Int min = item.Position;
-            Vector2Int max = item.Position;
-
-            Bounds bounds = new Bounds(parent.GetPositionForCoord(item.Position.x, item.Position.y), Vector3.zero);
+            bool first = true;
+            Vector3 min = Vector3.zero;
+            Vector3 max = Vector3.zero;
 
             for (int i = 0; i < cells.Length; i++)
             {
-                int x = cells[i].x;
-                int y = cells[i].y;
+                var coord = cells[i];
 
-                if (min.x < x)
-                    min.x = x;
-                if (max.x > x)
-                    max.x = x;
-                if (min.y < y)
-                    min.y = y;
-                if (max.y > y)
-                    max.y = y;
+                //Debug.Log($"item {item.Data.name} occupies Cell {coord}");
+                var cell = parent.GetCellForCoord(coord.x, coord.y);
 
-                bounds.Encapsulate(parent.GetPositionForCoord(x, y));
+                cell.RectTransform.GetWorldCorners(corners);
+
+                for (int j = 0; j < 4; j++)
+                {
+                    Vector3 worldCorner = corners[j];
+                    Vector3 localCorner = transform.InverseTransformPoint(worldCorner);
+
+                    if (first)
+                    {
+                        min = localCorner;
+                        max = localCorner;
+                        first = false;
+                    }
+                    else
+                    {
+                        min = Vector3.Min(min, localCorner);
+                        max = Vector3.Max(max, localCorner);
+                    }
+                }
             }
 
-            int deltaX = Mathf.Abs(max.x - min.x) + 1;
-            int deltaY = Mathf.Abs(max.y - min.y) + 1;
-            Vector2 cellSize = parent.Layout.cellSize;
-            Vector2 spacing = parent.Layout.spacing;
-
-            RectTransform rectTransform = transform as RectTransform;
-            if (rectTransform != null)
+            if (transform is RectTransform rectTransform)
             {
-                rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal,
-                    deltaX * cellSize.x + (deltaX - 1) * spacing.x);
-                rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical,
-                    deltaY * cellSize.y + (deltaY - 1) * spacing.y);
-            }
 
-            if (rectTransform != null)
-                rectTransform.position = bounds.center;
+                Vector3 size = max - min;
+                Vector3 pivotOffset = new Vector2(rectTransform.pivot.x * size.x, rectTransform.pivot.y * size.y);
+
+                rectTransform.sizeDelta = size;
+                rectTransform.anchoredPosition = (min + pivotOffset);
+            }
         }
 
         public void Unbind(InventoryItem item)

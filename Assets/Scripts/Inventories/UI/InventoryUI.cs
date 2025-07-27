@@ -28,8 +28,6 @@ namespace Inventories.UI
         private IInventoryContainer container;
         private Inventory currentInventory;
 
-        private Vector2Int currentSize;
-
         private RectTransform rectTransform;
 
         private void Awake()
@@ -45,11 +43,11 @@ namespace Inventories.UI
 
             container = inventoryContainer;
 
-            Inventory inventory = inventoryContainer.GetInventory();
-            int width = inventory.Size.x;
-            int height = inventory.Size.y;
+            currentInventory = inventoryContainer.GetInventory();
+            int width = currentInventory.Size.x;
+            int height = currentInventory.Size.y;
 
-            currentSize = new Vector2Int(width, height);
+            Debug.Log(currentInventory.Size);
             int fullSize = width * height;
 
             cells = new InventoryCellUI[fullSize];
@@ -68,12 +66,22 @@ namespace Inventories.UI
 
             Canvas.ForceUpdateCanvases();
 
-            foreach (InventoryItem item in inventory.Items)
+            foreach (InventoryItem item in currentInventory.Items)
             {
                 InventoryItemUI itemUI = itemUIPrefab.InstantiatePrefab(itemContainer);
                 itemUI.Bind(item);
                 itemUis.Add(item.Guid, itemUI);
             }
+        }
+
+
+        public InventoryCellUI GetCellForCoord(int x, int y)
+        {
+            int index = currentInventory.ToIndex(x, y);
+            if(index != -1)
+                return cells[index];
+
+            return null;
         }
 
         public Vector3 GetPositionForCoord(int x, int y)
@@ -85,9 +93,7 @@ namespace Inventories.UI
             }
 
             if (layout.transform.GetChild(index) is RectTransform t)
-            {
                 return t.position;
-            }
 
             return transform.position;
         }
