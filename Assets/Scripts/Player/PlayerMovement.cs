@@ -1,3 +1,4 @@
+using System.Collections;
 using LTX.ChanneledProperties.Priorities;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -11,6 +12,13 @@ public class PlayerMovement : MonoBehaviour
     private const string _triggerAttack = "Attack";
 
     [SerializeField]
+    private float maxHealth = 10f;
+    private float health;
+    [SerializeField]
+    private float timeBeforeGetAttacked;
+    private bool canGetAttacked;
+
+    [SerializeField]
     private float _moveSpeed = 5f;
 
     private Vector2 _movement;
@@ -22,6 +30,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
+        canGetAttacked = true;
+        health = maxHealth;
         _rb = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
     }
@@ -57,6 +67,25 @@ public class PlayerMovement : MonoBehaviour
         _movement = context.ReadValue<Vector2>();
         if (_movement.sqrMagnitude < 0.01) return;
         FacingDirection = _movement.normalized;
+    }
+
+    public void PlayerGetAttacked(float damages)
+    {
+        if (!canGetAttacked) return;
+        canGetAttacked = false;
+        health -= damages;
+        Debug.Log(health);
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
+        StartCoroutine(HandleCanGetAttacked());
+    }
+    
+    private IEnumerator HandleCanGetAttacked()
+    {
+        yield return new WaitForSeconds(timeBeforeGetAttacked);
+        canGetAttacked = true;
     }
 
 }

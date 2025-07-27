@@ -7,6 +7,7 @@ public partial class ZombieFollow : MonoBehaviour
     private const string horizontal = "Horizontal";
     private const string vertical = "Vertical";
     private const string isMoving = "IsMoving";
+    private const string triggerAttack = "Attack";
     private Animator animator;
 
     bool isFollowing = false;
@@ -43,6 +44,11 @@ public partial class ZombieFollow : MonoBehaviour
             isFollowing = false;
             animator.SetBool(isMoving, false);
         }
+    }
+
+    public void TriggerAttack()
+    {
+        animator.SetTrigger(triggerAttack);
     }
 
 

@@ -194,6 +194,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9513f3c0ff0e1496d95b8cba505ad105, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 10
+  timeBeforeGetAttacked: 1
   _moveSpeed: 5
 --- !u!114 &4605923289909109051
 MonoBehaviour:
@@ -292,6 +294,7 @@ MonoBehaviour:
   zombieMask:
     serializedVersion: 2
     m_Bits: 64
+  timeBeforeNextAttack: 0.4
 --- !u!50 &7444257815752923386
 Rigidbody2D:
   serializedVersion: 5

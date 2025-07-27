@@ -111,7 +111,7 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 22
+        width: 11
         height: 14
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -131,10 +131,10 @@ TextureImporter:
       name: Zombie_Small_Side-left_First-Attack-Sheet4_1
       rect:
         serializedVersion: 2
-        x: 21
+        x: 11
         y: 0
-        width: 12
-        height: 13
+        width: 11
+        height: 14
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,7 +153,7 @@ TextureImporter:
       name: Zombie_Small_Side-left_First-Attack-Sheet4_2
       rect:
         serializedVersion: 2
-        x: 33
+        x: 22
         y: 0
         width: 11
         height: 14
@@ -171,11 +171,33 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Zombie_Small_Side-left_First-Attack-Sheet4_3
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 0
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f67c718263114d36ba293b59442a6dc
+      internalID: 2021684059
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 7cf06a37e8e99452f95973c4397fa11d
     internalID: 0
     vertices: []
     indices: 
@@ -183,11 +205,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":4.0,"y":1.0},"gridSpriteSize":{"x":11.0,"y":14.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       Zombie_Small_Side-left_First-Attack-Sheet4_0: -3299677336675309201
       Zombie_Small_Side-left_First-Attack-Sheet4_1: 8882226750727241831
       Zombie_Small_Side-left_First-Attack-Sheet4_2: 9152940955121920677
+      Zombie_Small_Side-left_First-Attack-Sheet4_3: 2021684059
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

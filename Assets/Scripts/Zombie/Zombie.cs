@@ -6,13 +6,11 @@ public partial class ZombieFollow : MonoBehaviour
     private float maxHealth = 3f;
     private float health;
 
-    public void GetAttacked(float damages)
+    public void ZombieGetAttacked(float damages)
     {
         health -= damages;
-        Debug.Log(health);
         if (health <= 0)
         {
-            Debug.Log("test");
             Destroy(gameObject);
         }
     }
