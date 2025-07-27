@@ -10,10 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: de8aabd0d3b4443b830655ceeaa8b9e8, type: 3}
-  m_Name: Rope
+  m_Name: Plank
   m_EditorClassIdentifier: 
-  <OccupiedSpace>k__BackingField:
-  - {x: 0, y: -1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 1}
-  <Icon>k__BackingField: {fileID: -2252083909272842676, guid: 6a804c6aeb4fda948a327b5cd1317e85, type: 3}
+  <Icon>k__BackingField: {fileID: -3908982824556845597, guid: a7558b75b64333a419e08b8750f4300a, type: 3}

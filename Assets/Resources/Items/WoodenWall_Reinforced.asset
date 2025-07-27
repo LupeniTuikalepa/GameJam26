@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de8aabd0d3b4443b830655ceeaa8b9e8, type: 3}
+  m_Name: WoodenWall_Reinforced
+  m_EditorClassIdentifier: 
+  <Icon>k__BackingField: {fileID: -2237898799980768134, guid: a8b74d984f74b9f428a108eb8357d2d6, type: 3}
+  <Recipe>k__BackingField:
+  - {fileID: 11400000, guid: 7c1402e773bd69e48a725dee5fccf822, type: 2}
+  - {fileID: 11400000, guid: 86e7fee35b52cf84995a3a593a853c8c, type: 2}
+  <CraftQuantity>k__BackingField: 1

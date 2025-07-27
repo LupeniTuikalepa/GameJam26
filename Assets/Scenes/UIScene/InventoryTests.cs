@@ -1,11 +1,9 @@
-
 using System;
-using Crafts;
 using Inventories;
 using Inventories.UI;
 using UnityEngine;
 
-public class InventoryTests : MonoBehaviour, IInventoryContainer
+public class InventoryTests : MonoBehaviour
 {
     [SerializeField]
     private Inventory inventory;
@@ -13,13 +11,19 @@ public class InventoryTests : MonoBehaviour, IInventoryContainer
     [SerializeField]
     private InventoryUI inventoryUi;
 
-    public Inventory GetInventory() => inventory;
+    [SerializeField]
+    private CraftUI craftUI;
 
-    public void SetInventory(Inventory inventory) => this.inventory = inventory;
+
+    private void Start()
+    {
+        inventoryUi.Open(inventory);
+        craftUI.Open(inventory);
+    }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
-            inventoryUi.Open(this);
+            Start();
     }
 }

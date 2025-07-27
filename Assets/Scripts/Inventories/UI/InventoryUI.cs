@@ -1,131 +1,102 @@
-﻿using System;
-using System.Collections.Generic;
-using Crafts;
+﻿using System.Collections.Generic;
+using DG.Tweening;
 using LTX;
+using LTX.Singletons;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using UnityEngine.Pool;
 using UnityEngine.UI;
 
 namespace Inventories.UI
 {
-    public class InventoryUI : MonoBehaviour
+    public class InventoryUI : MonoSingleton<InventoryUI>
     {
-        [SerializeField]
-        private GridLayoutGroup layout;
-
-        public GridLayoutGroup Layout => layout;
+        public GridLayoutGroup GridLayout => gridLayout;
 
         [SerializeField]
-        private RectTransform itemContainer;
-
+        private GridLayoutGroup gridLayout;
         [SerializeField]
         private InventoryItemUI itemUIPrefab;
-        [SerializeField]
-        private InventoryCellUI cell;
 
-        private Dictionary<string, InventoryItemUI> itemUis;
-        private InventoryCellUI[] cells;
+        private CanvasGroup canvasGroup;
 
-        private IInventoryContainer container;
-        private Inventory currentInventory;
+        private Dictionary<InventoryItemData, InventoryItemUI> itemUis;
 
-        private RectTransform rectTransform;
-
-        private void Awake()
+        protected override void Awake()
         {
-            itemUis = new Dictionary<string, InventoryItemUI>();
-            rectTransform = transform as RectTransform;
+            base.Awake();
+            canvasGroup = gameObject.AddComponent<CanvasGroup>();
+            canvasGroup.alpha = 0;
+            canvasGroup.blocksRaycasts = false;
+
+            itemUis = new Dictionary<InventoryItemData, InventoryItemUI>();
         }
 
-        public void Open(IInventoryContainer inventoryContainer)
+        public void Open(Inventory inventory)
         {
-            if (container != null)
-                Close(container, false);
-
-            container = inventoryContainer;
-
-            currentInventory = inventoryContainer.GetInventory();
-            int width = currentInventory.Size.x;
-            int height = currentInventory.Size.y;
-
-            int fullSize = width * height;
-
-            cells = new InventoryCellUI[fullSize];
-            for (int i = 0; i < fullSize; i++)
-                cells[i] = cell.InstantiatePrefab(layout.transform);
-
-            float horizontalSize = width * layout.cellSize.x +
-                                   (width - 1) * layout.spacing.x + layout.padding.left +
-                                   layout.padding.right;
-            float verticalSize = height * layout.cellSize.y +
-                                 (height - 1) * layout.spacing.y +
-                                 layout.padding.top + layout.padding.bottom;
-
-            rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, horizontalSize);
-            rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, verticalSize);
-
-            Canvas.ForceUpdateCanvases();
-
-            foreach (InventoryItem item in currentInventory.Items)
+            foreach (InventoryItem item in inventory.Items)
             {
-                InventoryItemUI itemUI = itemUIPrefab.InstantiatePrefab(itemContainer);
-                itemUI.Bind(item);
-                itemUis.Add(item.Guid, itemUI);
-            }
-        }
+                var itemUI = itemUIPrefab.InstantiatePrefab(gridLayout.transform);
+                itemUI.Sync(item);
+                itemUis.Add(item.Data, itemUI);
 
+                float delay = transform.GetSiblingIndex() * .07f;
 
-        public InventoryCellUI GetCellForCoord(int x, int y)
-        {
-            int index = currentInventory.ToIndex(x, y);
-            if(index != -1)
-                return cells[index];
-
-            return null;
-        }
-
-        public Vector3 GetPositionForCoord(int x, int y)
-        {
-            int index = currentInventory.ToIndex(x, y);
-            if (index < 0 || index > layout.transform.childCount)
-            {
-                return transform.position;
+                itemUI.transform.DOKill(true);
+                itemUI.canvasGroup.DOFade(1, .15f)
+                    .ChangeStartValue(0)
+                    .SetDelay(delay);
+                itemUI.transform.DOPunchScale(Vector3.one  * .9f, .4f)
+                    .SetDelay(delay);
             }
 
-            if (layout.transform.GetChild(index) is RectTransform t)
-                return t.position;
-
-            return transform.position;
+            canvasGroup.blocksRaycasts = true;
+            canvasGroup.DOKill();
+            canvasGroup.DOFade(1, .3f);
+            inventory.OnUpdate += Sync;
         }
 
-        public void Close(IInventoryContainer inventoryContainer, bool apply)
+        public void Close(Inventory inventory)
         {
-            layout.transform.ClearChildren();
-
-            foreach ((string guid, InventoryItemUI inventoryItemUI) in itemUis)
-            {
-                if(currentInventory.TryGetItem(guid, out InventoryItem item))
-                    inventoryItemUI.Unbind(item);
-
-                inventoryItemUI.DestroyGameObject();
-            }
-
-            itemContainer.ClearChildren();
+            inventory.OnUpdate -= Sync;
+            gridLayout.transform.ClearChildren();
             itemUis.Clear();
 
-            if(apply)
-                inventoryContainer.SetInventory(currentInventory);
-
-            currentInventory = default;
+            canvasGroup.DOKill();
+            canvasGroup.DOFade(0, .3f)
+                .OnComplete(() => canvasGroup.blocksRaycasts = false);
         }
 
-
-        public void EndDrag(InventoryItemUI inventoryItemUI, PointerEventData eventData)
+        private void Sync(Inventory inventory)
         {
+            using (ListPool<InventoryItemData>.Get(out List<InventoryItemData> remove))
+            {
+                foreach ((InventoryItemData data, InventoryItemUI uiItem) in itemUis)
+                {
+                    if (inventory.GetItemQuantity(data) > 0)
+                        uiItem.Sync(inventory.GetItem(data));
+                    else
+                        remove.Add(data);
+                }
+
+                foreach (var item in inventory.Items)
+                {
+                    if (!itemUis.ContainsKey(item.Data))
+                    {
+                        var itemUI = itemUIPrefab.InstantiatePrefab(gridLayout.transform);
+                        itemUI.Sync(item);
+                        itemUis.Add(item.Data, itemUI);
+                    }
+                }
+
+                foreach (var data in remove)
+                {
+                    itemUis.Remove(data, out var uiItem);
+                    uiItem.DestroyGameObject();
+                }
+            }
         }
 
-        public void BeginDrag(InventoryItemUI inventoryItemUI, PointerEventData eventData)
-        {
-        }
+
+
     }
 }
