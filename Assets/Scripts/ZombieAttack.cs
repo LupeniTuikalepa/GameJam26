@@ -14,7 +14,6 @@ public class ZombieAttack : MonoBehaviour
     private bool canAttack;
     [SerializeField]
     private float timeBeforeNextAttack = 1f;
-    private float timer;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
