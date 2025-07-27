@@ -17,6 +17,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float maxHealth = 10f;
     private float health;
+
+    public float Health => health;
+    public float MaxHealth => maxHealth;
+
     [SerializeField]
     private float timeBeforeGetAttacked;
     private bool canGetAttacked;

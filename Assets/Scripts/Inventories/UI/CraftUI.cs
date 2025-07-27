@@ -12,7 +12,7 @@ namespace Inventories.UI
     {
         private static InventoryItemData[] craftableItems;
 
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]
         private static void LoadCraftableItems()
         {
             craftableItems = Resources.LoadAll<InventoryItemData>("Items")
