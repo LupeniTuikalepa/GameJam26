@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Rope
   m_EditorClassIdentifier: 
   <OccupiedSpace>k__BackingField:
+  - {x: 0, y: -1}
   - {x: 0, y: 0}
   - {x: 0, y: 1}
-  - {x: 0, y: 2}
-  <Icon>k__BackingField: {fileID: 0}
+  <Icon>k__BackingField: {fileID: -2252083909272842676, guid: 6a804c6aeb4fda948a327b5cd1317e85, type: 3}

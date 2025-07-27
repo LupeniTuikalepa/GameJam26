@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Crafts;
 using LTX;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Inventories.UI
@@ -47,7 +48,6 @@ namespace Inventories.UI
             int width = currentInventory.Size.x;
             int height = currentInventory.Size.y;
 
-            Debug.Log(currentInventory.Size);
             int fullSize = width * height;
 
             cells = new InventoryCellUI[fullSize];
@@ -120,5 +120,12 @@ namespace Inventories.UI
         }
 
 
+        public void EndDrag(InventoryItemUI inventoryItemUI, PointerEventData eventData)
+        {
+        }
+
+        public void BeginDrag(InventoryItemUI inventoryItemUI, PointerEventData eventData)
+        {
+        }
     }
 }

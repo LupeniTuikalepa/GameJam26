@@ -59,7 +59,6 @@ namespace Inventories
         public int ToIndex(int x, int y)
         {
             int result = (y * Size.x)+ x;
-            Debug.Log($"{x} | {y} => {result} for {Size}");
             return result;
         }
 

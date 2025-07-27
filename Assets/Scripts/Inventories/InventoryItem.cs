@@ -14,7 +14,7 @@ namespace Inventories
         [field: SerializeField]
         public Orientation Orientation { get; private set; }
 
-        [field: SerializeField, HideInInspector]
+        [field: SerializeField]
         public string Guid { get; private set; }
 
         public InventoryItem(InventoryItemData data, Vector2Int position)
@@ -43,6 +43,7 @@ namespace Inventories
                     Orientation.Down => new Vector2Int(current.y, -current.x),
                     _ => Vector2Int.zero,
                 };
+
             }
 
             return output;
