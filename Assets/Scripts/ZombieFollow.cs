@@ -11,7 +11,7 @@ public class ZombieFollow : MonoBehaviour
     
     bool isFollowing = false;
     
-    
+    private Rigidbody2D rb;
     [SerializeField, Range(1f, 100f)]
     private float speed = 1f;
     Transform player;
@@ -24,6 +24,7 @@ public class ZombieFollow : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -47,7 +48,9 @@ public class ZombieFollow : MonoBehaviour
             if (!isFollowing || player == null) return;
             Vector3 direction = player.position - transform.position;
             Vector3 velocity = direction.normalized * speed;
-            transform.position += velocity * Time.deltaTime;
+            Vector3 newPos = transform.position + velocity * Time.deltaTime;
+
+             rb.MovePosition(newPos);
 
             animator.SetFloat(horizontal, velocity.y < 0.5 && velocity.y > -0.5 ? velocity.x : 0);
             animator.SetFloat(vertical, velocity.x < 0.5 && velocity.x > -0.5 ? velocity.y : 0);
