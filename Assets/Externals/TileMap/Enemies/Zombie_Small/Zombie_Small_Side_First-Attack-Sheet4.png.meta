@@ -133,7 +133,7 @@ TextureImporter:
         serializedVersion: 2
         x: 11
         y: 0
-        width: 12
+        width: 11
         height: 14
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -155,7 +155,7 @@ TextureImporter:
         serializedVersion: 2
         x: 22
         y: 0
-        width: 22
+        width: 11
         height: 14
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -171,11 +171,33 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Zombie_Small_Side_First-Attack-Sheet4_3
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 0
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 45ccbe6d8c7f04241bcd94e0b7d3a0c0
+      internalID: -2067190990
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 748b39e87e30c42e1923b5cac9150770
     internalID: 0
     vertices: []
     indices: 
@@ -183,11 +205,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":4.0,"y":1.0},"gridSpriteSize":{"x":11.0,"y":14.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       Zombie_Small_Side_First-Attack-Sheet4_0: 5015033338627254601
       Zombie_Small_Side_First-Attack-Sheet4_1: 9185900395681212975
       Zombie_Small_Side_First-Attack-Sheet4_2: -849228916485045371
+      Zombie_Small_Side_First-Attack-Sheet4_3: -2067190990
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
