@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public partial class ZombieFollow : MonoBehaviour
@@ -17,10 +18,13 @@ public partial class ZombieFollow : MonoBehaviour
     Transform player;
     private Rigidbody2D rb;
 
+    private bool canMove;
+
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         health = maxHealth;
+        canMove = true;
     }
 
     private void Awake()
@@ -62,9 +66,28 @@ public partial class ZombieFollow : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!isFollowing || player == null) return;
+        if (health <= 0)
+        {
+            rb.linearVelocity = Vector2.zero;
+            return;
+        }
+        if (!isFollowing || player == null || !canMove) return;
         Vector3 direction = player.position - transform.position;
         Vector3 velocity = direction.normalized * speed;
         rb.linearVelocity = velocity;
+    }
+
+    public void Push(Vector2 force)
+    {
+        rb.linearVelocity = Vector2.zero;
+        rb.AddForce(force, ForceMode2D.Impulse);
+        StartCoroutine(LockZombie(0.5f));
+    }
+
+    private IEnumerator LockZombie(float time)
+    {
+        canMove = false;
+        yield return new WaitForSeconds(time);
+        canMove = true;
     }
 }

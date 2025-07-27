@@ -115,9 +115,9 @@ TextureImporter:
       name: Zombie_Small_Side-left_First-Death-Sheet6_0
       rect:
         serializedVersion: 2
-        x: 2
+        x: 0
         y: 0
-        width: 15
+        width: 16
         height: 14
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -137,10 +137,10 @@ TextureImporter:
       name: Zombie_Small_Side-left_First-Death-Sheet6_1
       rect:
         serializedVersion: 2
-        x: 17
+        x: 16
         y: 0
         width: 16
-        height: 13
+        height: 14
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -159,9 +159,9 @@ TextureImporter:
       name: Zombie_Small_Side-left_First-Death-Sheet6_2
       rect:
         serializedVersion: 2
-        x: 34
+        x: 32
         y: 0
-        width: 15
+        width: 16
         height: 14
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -181,9 +181,9 @@ TextureImporter:
       name: Zombie_Small_Side-left_First-Death-Sheet6_3
       rect:
         serializedVersion: 2
-        x: 51
+        x: 48
         y: 0
-        width: 30
+        width: 16
         height: 14
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -203,10 +203,10 @@ TextureImporter:
       name: Zombie_Small_Side-left_First-Death-Sheet6_4
       rect:
         serializedVersion: 2
-        x: 79
+        x: 64
         y: 0
-        width: 17
-        height: 10
+        width: 16
+        height: 14
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -221,11 +221,33 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Zombie_Small_Side-left_First-Death-Sheet6_5
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 0
+        width: 16
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5d5a6c662b39447eafa3bf5452e77f4
+      internalID: 1507958407
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: c253b457ef53a4568a48f249506e4794
     internalID: 0
     vertices: []
     indices: 
@@ -233,13 +255,16 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":6.0,"y":1.0},"gridSpriteSize":{"x":16.0,"y":14.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       Zombie_Small_Side-left_First-Death-Sheet6_0: 1533593201651548615
       Zombie_Small_Side-left_First-Death-Sheet6_1: -1936232743833835185
       Zombie_Small_Side-left_First-Death-Sheet6_2: 3116183175586071679
       Zombie_Small_Side-left_First-Death-Sheet6_3: -1988007579408736899
       Zombie_Small_Side-left_First-Death-Sheet6_4: 4769685757381659295
+      Zombie_Small_Side-left_First-Death-Sheet6_5: 1507958407
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

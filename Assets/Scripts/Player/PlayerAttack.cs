@@ -38,6 +38,7 @@ public class PlayerAttack : MonoBehaviour
             Collider2D currentHit = hits[i];
             if (!currentHit.TryGetComponent(out ZombieFollow zombie)) continue;
             zombie.ZombieGetAttacked(strength);
+            zombie.Push(playerMovement.FacingDirection * strength * 100);
         }
         StartCoroutine(HandleCanAttack());
     }
