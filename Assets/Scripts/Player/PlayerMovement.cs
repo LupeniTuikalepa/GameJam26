@@ -1,4 +1,5 @@
 using System.Collections;
+using DG.Tweening;
 using LTX.ChanneledProperties.Priorities;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,6 +11,8 @@ public class PlayerMovement : MonoBehaviour
     private const string _isMoving = "IsMoving";
     private const string _isInteracting = "IsInteracting";
     private const string _triggerAttack = "Attack";
+    private const string isDead = "IsDead";
+
 
     [SerializeField]
     private float maxHealth = 10f;
@@ -20,11 +23,14 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField]
     private float _moveSpeed = 5f;
+    [SerializeField]
+    private Gradient hitGradient;
 
     private Vector2 _movement;
     public Vector2 FacingDirection { get; private set; }
 
     private Rigidbody2D _rb;
+    private SpriteRenderer spriteRenderer;
 
     private Animator _animator;
 
@@ -34,6 +40,7 @@ public class PlayerMovement : MonoBehaviour
         health = maxHealth;
         _rb = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -74,12 +81,21 @@ public class PlayerMovement : MonoBehaviour
         if (!canGetAttacked) return;
         canGetAttacked = false;
         health -= damages;
-        Debug.Log(health);
         if (health <= 0)
         {
-            Destroy(gameObject);
+            _animator.SetBool(isDead, true);
         }
-        StartCoroutine(HandleCanGetAttacked());
+        else
+        {
+            StartCoroutine(HandleCanGetAttacked());
+            transform.DOPunchScale(Vector3.one * 0.6f, 0.3f);
+            spriteRenderer.DOGradientColor(hitGradient, 0.3f);
+        }
+    }
+
+    public void DestroyPlayer()
+    {
+        Destroy(gameObject);
     }
     
     private IEnumerator HandleCanGetAttacked()
