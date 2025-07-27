@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6842202942866076495}
   - component: {fileID: 5673258794145022528}
   - component: {fileID: 6517556473275376478}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: InteractionDetector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,11 +96,12 @@ GameObject:
   - component: {fileID: 6689138275417889152}
   - component: {fileID: 5374436055696883492}
   - component: {fileID: 4605923289909109051}
+  - component: {fileID: 3390249897820245089}
   - component: {fileID: 7444257815752923386}
   - component: {fileID: 2358153708726642529}
   - component: {fileID: 3226825872111849185}
   - component: {fileID: 8722647295698333822}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 2800000, guid: 957c9da9954007d43898a9f242557c6c, type: 3}
@@ -251,11 +252,46 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 6146d088-78a4-42e8-bac4-895b90277bab
     m_ActionName: 'Player/Interact[/Keyboard/e]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3390249897820245089}
+        m_TargetAssemblyTypeName: PlayerAttack, Assembly-CSharp
+        m_MethodName: Attack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: df1a2a1b-01f7-4880-96cc-5d64c1fd9d27
+    m_ActionName: 'Player/Attack[/Keyboard/space]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &3390249897820245089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1268410416363109026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8345636a5fbf2413eaeca7f522c54121, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMovement: {fileID: 5374436055696883492}
+  strength: 1
+  colliderRange: 1
+  colliderRadius: 1
+  zombieMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!50 &7444257815752923386
 Rigidbody2D:
   serializedVersion: 5
@@ -268,8 +304,8 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDamping: 0
+  m_Mass: 1000
+  m_LinearDamping: 10
   m_AngularDamping: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -397,7 +433,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5279524175432909734}
   - component: {fileID: 2012599882169694379}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: InteractionIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -484,7 +520,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3024537380518433141}
   - component: {fileID: 4379523785712623126}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -572,7 +608,7 @@ GameObject:
   - component: {fileID: 5533343895912246288}
   - component: {fileID: 718231375391884138}
   - component: {fileID: 8323797545934974920}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: CinemachineCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -678,7 +714,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2327434841237482816}
   - component: {fileID: 2587159919874540741}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Light 2D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
