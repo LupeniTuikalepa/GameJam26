@@ -11,11 +11,14 @@ namespace Inventories.UI
     {
         [SerializeField]
         private GridLayoutGroup layout;
+
+        public GridLayoutGroup Layout => layout;
+
         [SerializeField]
         private RectTransform itemContainer;
 
         [SerializeField]
-        private InventoryItemUI ui;
+        private InventoryItemUI itemUIPrefab;
         [SerializeField]
         private InventoryCellUI cell;
 
@@ -23,6 +26,8 @@ namespace Inventories.UI
         private InventoryCellUI[] cells;
 
         private IInventoryContainer container;
+        private Inventory currentInventory;
+
         private Vector2Int currentSize;
 
         private RectTransform rectTransform;
@@ -33,10 +38,10 @@ namespace Inventories.UI
             rectTransform = transform as RectTransform;
         }
 
-        public void Bind(IInventoryContainer inventoryContainer)
+        public void Open(IInventoryContainer inventoryContainer)
         {
-            if(container != null)
-                Unbind(container);
+            if (container != null)
+                Close(container, false);
 
             container = inventoryContainer;
 
@@ -51,13 +56,61 @@ namespace Inventories.UI
             for (int i = 0; i < fullSize; i++)
                 cells[i] = cell.InstantiatePrefab(layout.transform);
 
-            rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width * layout.cellSize.x);
-            rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, height * layout.cellSize.y);
+            float horizontalSize = width * layout.cellSize.x +
+                                   (width - 1) * layout.spacing.x + layout.padding.left +
+                                   layout.padding.right;
+            float verticalSize = height * layout.cellSize.y +
+                                 (height - 1) * layout.spacing.y +
+                                 layout.padding.top + layout.padding.bottom;
+
+            rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, horizontalSize);
+            rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, verticalSize);
+
+            Canvas.ForceUpdateCanvases();
+
+            foreach (InventoryItem item in inventory.Items)
+            {
+                InventoryItemUI itemUI = itemUIPrefab.InstantiatePrefab(itemContainer);
+                itemUI.Bind(item);
+                itemUis.Add(item.Guid, itemUI);
+            }
         }
 
-        public void Unbind(IInventoryContainer inventoryContainer)
+        public Vector3 GetPositionForCoord(int x, int y)
+        {
+            int index = currentInventory.ToIndex(x, y);
+            if (index < 0 || index > layout.transform.childCount)
+            {
+                return transform.position;
+            }
+
+            if (layout.transform.GetChild(index) is RectTransform t)
+            {
+                return t.position;
+            }
+
+            return transform.position;
+        }
+
+        public void Close(IInventoryContainer inventoryContainer, bool apply)
         {
             layout.transform.ClearChildren();
+
+            foreach ((string guid, InventoryItemUI inventoryItemUI) in itemUis)
+            {
+                if(currentInventory.TryGetItem(guid, out InventoryItem item))
+                    inventoryItemUI.Unbind(item);
+
+                inventoryItemUI.DestroyGameObject();
+            }
+
+            itemContainer.ClearChildren();
+            itemUis.Clear();
+
+            if(apply)
+                inventoryContainer.SetInventory(currentInventory);
+
+            currentInventory = default;
         }
 
 
