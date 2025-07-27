@@ -1,74 +1,27 @@
-﻿using System;
+﻿using DG.Tweening;
+using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Inventories.UI
 {
-    public class InventoryItemUI : MonoBehaviour
+    public class InventoryItemUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
-        private InventoryUI parent;
-
+        [SerializeField]
+        public CanvasGroup canvasGroup;
         [SerializeField]
         private Image image;
+        [SerializeField]
+        private TextMeshProUGUI quantityText;
 
-        private void Awake()
-        {
-            parent = GetComponentInParent<InventoryUI>();
-            image = GetComponent<Image>();
-        }
+        private Vector2 offset;
 
-        public void Bind(InventoryItem item)
+        public void Sync(InventoryItem item)
         {
             image.sprite = item.Data.Icon;
-            transform.eulerAngles = item.Orientation switch
-            {
-                Orientation.Right => Vector3.zero,
-                Orientation.Left => Vector3.forward * 180,
-                Orientation.Up => Vector3.forward * 90,
-                Orientation.Down => Vector3.forward * -90,
-                _ => throw new ArgumentOutOfRangeException()
-            };
+            quantityText.text = item.Quantity.ToString();
 
-            Vector2Int[] cells = item.GetCells();
-
-            Vector2Int min = item.Position;
-            Vector2Int max = item.Position;
-
-            Bounds bounds = new Bounds(parent.GetPositionForCoord(item.Position.x, item.Position.y), Vector3.zero);
-
-            for (int i = 0; i < cells.Length; i++)
-            {
-                int x = cells[i].x;
-                int y = cells[i].y;
-
-                if (min.x < x)
-                    min.x = x;
-                if (max.x > x)
-                    max.x = x;
-                if (min.y < y)
-                    min.y = y;
-                if (max.y > y)
-                    max.y = y;
-
-                bounds.Encapsulate(parent.GetPositionForCoord(x, y));
-            }
-
-            int deltaX = Mathf.Abs(max.x - min.x) + 1;
-            int deltaY = Mathf.Abs(max.y - min.y) + 1;
-            Vector2 cellSize = parent.Layout.cellSize;
-            Vector2 spacing = parent.Layout.spacing;
-
-            RectTransform rectTransform = transform as RectTransform;
-            if (rectTransform != null)
-            {
-                rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal,
-                    deltaX * cellSize.x + (deltaX - 1) * spacing.x);
-                rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical,
-                    deltaY * cellSize.y + (deltaY - 1) * spacing.y);
-            }
-
-            if (rectTransform != null)
-                rectTransform.position = bounds.center;
         }
 
         public void Unbind(InventoryItem item)
@@ -76,5 +29,16 @@ namespace Inventories.UI
 
         }
 
+        void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
+        {
+            transform.DOKill(true);
+            transform.DOScale(Vector3.one * 1.1f, .2f);
+        }
+
+        void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
+        {
+            transform.DOKill(true);
+            transform.DOScale(Vector3.one, .2f);
+        }
     }
 }

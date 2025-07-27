@@ -10,12 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: de8aabd0d3b4443b830655ceeaa8b9e8, type: 3}
-  m_Name: Rope
+  m_Name: WoodenWall
   m_EditorClassIdentifier: 
-  <OccupiedSpace>k__BackingField:
-  - {x: 0, y: -2}
-  - {x: 0, y: -1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 1}
-  - {x: 0, y: 2}
-  <Icon>k__BackingField: {fileID: 0}
+  <Icon>k__BackingField: {fileID: -3575956333728668087, guid: d71859b3fecae6249bb2ee67e5cba940, type: 3}
+  <Recipe>k__BackingField:
+  - {fileID: 11400000, guid: 7babe6d14e774c7468ef3857f6cfee14, type: 2}
+  - {fileID: 11400000, guid: 7babe6d14e774c7468ef3857f6cfee14, type: 2}
+  <CraftQuantity>k__BackingField: 1

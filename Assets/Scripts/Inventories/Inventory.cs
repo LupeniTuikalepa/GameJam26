@@ -1,107 +1,64 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Inventories
 {
     [System.Serializable]
-    public struct Inventory
+    public class Inventory
     {
+        public event Action<Inventory> OnUpdate;
         public IReadOnlyList<InventoryItem> Items => items;
 
         [field: SerializeField]
         private List<InventoryItem> items;
 
-        [field: SerializeField]
-        public Vector2Int Size { get; private set; }
-
-        private int[] indices;
-
-        public Inventory(int width, int height)
+        public Inventory()
         {
-            Size = new Vector2Int(width, height);
             items = new List<InventoryItem>();
-            indices = new int[width * height];
-            for (int i = 0; i < indices.Length; i++)
-                indices[i] = -1;
         }
 
-        public void AddItem(InventoryItemData data, Vector2Int position)
-        {
-            items.Add(new InventoryItem(data, position));
-            RebuildIndices();
-        }
-
-
-        public bool TryGetItem(string guid, out InventoryItem item)
-        {
-            int idx = GetIndexOfItem(guid);
-            if (idx != -1)
-            {
-
-                item = items[idx];
-                return true;
-            }
-
-            item = default;
-            return false;
-        }
-
-        public int GetIndexOfItem(InventoryItem item) => GetIndexOfItem(item.Guid);
-        public int GetIndexOfItem(string guid)
-        {
-            int idx = items.FindIndex(0, ctx => ctx.Guid == guid);
-            return idx;
-        }
-
-        public void RemoveItem(int index) => items.RemoveAt(index);
-        public void RemoveItem(InventoryItem item) => RemoveItem(GetIndexOfItem(item));
-
-        public int ToIndex(int x, int y) => y * Size.x + x;
-
-
-        public void ChangeSize(int width, int height)
-        {
-            Size = new Vector2Int(width, height);
-            indices = new int[width * height];
-
-            RebuildIndices();
-        }
-
-        public bool ValidatePosition(InventoryItem item, Vector2Int position, Orientation orientation)
-        {
-            Vector2Int[] positions = item.GetCells(position, orientation);
-            for (int i = 0; i < positions.Length; i++)
-            {
-                Vector2Int p = positions[i];
-                if (p.x < 0 || p.x >= Size.x || p.y < 0 || p.y >= Size.y)
-                    return false;
-
-                if (IsCellOccupied(p.x, p.y))
-                    return false;
-            }
-
-            return true;
-        }
-        private void RebuildIndices()
+        public void RemoveItem(InventoryItemData data, int quantity = 1)
         {
             foreach (var item in items)
             {
-                int index = GetIndexOfItem(item);
-                Vector2Int[] cells = item.GetCells();
-
-                for (int i = 0; i < cells.Length; i++)
+                if (item.Data == data)
                 {
-                    int cellIndex = ToIndex(cells[i].x, cells[i].y);
-                    indices[cellIndex] = index;
+                    item.Decrease(quantity);
+                    break;
                 }
             }
-        }
 
-        public bool IsCellOccupied(int x, int y)
+            items.RemoveAll(ctx => ctx.Quantity <= 0);
+            OnUpdate?.Invoke(this);
+        }
+        public void AddItem(InventoryItemData data, int quantity = 1)
         {
-            int index = ToIndex(x, y);
+            foreach (var item in items)
+            {
+                if (item.Data == data)
+                {
+                    item.Increase(quantity);
+                    break;
+                }
+            }
 
-            return indices[index] != -1;
+            items.Add(new InventoryItem(data, quantity));
+            OnUpdate?.Invoke(this);
         }
+
+        public int GetItemQuantity(InventoryItemData data)
+        {
+            foreach (var item in items)
+            {
+                if (item.Data == data)
+                    return item.Quantity;
+            }
+
+            return 0;
+        }
+
+        public InventoryItem GetItem(InventoryItemData data) => items.FirstOrDefault(item => item.Data == data);
     }
 }
