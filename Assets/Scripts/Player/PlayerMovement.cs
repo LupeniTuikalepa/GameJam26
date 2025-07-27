@@ -4,27 +4,26 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    private const string _horizontal = "Horizontal";
+    private const string _vertical = "Vertical";
+    private const string _isMoving = "IsMoving";
+    private const string _isInteracting = "IsInteracting";
+    private const string _triggerAttack = "Attack";
+
     [SerializeField]
     private float _moveSpeed = 5f;
 
     private Vector2 _movement;
+    public Vector2 FacingDirection { get; private set; }
 
     private Rigidbody2D _rb;
+
     private Animator _animator;
-
-    private PlayerMovement playerMovement;
-
-    private const string _horizontal = "Horizontal";
-    private const string _vertical = "Vertical";
-    private const string _isMoving = "IsMoving";
-
-    private const string _isInteracting = "IsInteracting";
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
-        playerMovement = GetComponent<PlayerMovement>();
     }
 
     // Update is called once per frame
@@ -40,16 +39,24 @@ public class PlayerMovement : MonoBehaviour
 
     public void TriggerInteractionAnimation()
     {
-            _animator.SetBool(_isInteracting, true);
+        _animator.SetBool(_isInteracting, true);
     }
-    
+
     public void StopInteractionAnimation()
     {
         _animator.SetBool(_isInteracting, false);
     }
 
+    public void TriggerAttack()
+    {
+        _animator.SetTrigger(_triggerAttack);
+    }
+
     public void Move(InputAction.CallbackContext context)
     {
         _movement = context.ReadValue<Vector2>();
+        if (_movement.sqrMagnitude < 0.01) return;
+        FacingDirection = _movement.normalized;
     }
+
 }
